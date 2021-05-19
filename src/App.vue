@@ -1,28 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NavBar v-if="isLogin"/>
+    <router-view v-if="!isLogin" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavBar from './components/NavBar';
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    NavBar
+  },
+  computed: {
+    isLogin() {
+      let router = this.$router.app._route.path;
+      let route;
+
+      if(router == "/" || router == "/remmenber") {
+        route = false;
+      } else {
+        route = true;
+      }
+
+      return route;
+    }
   }
 }
 </script>
 
-<style>
+
+<style lang="scss">
+:root {
+  --colorBackground: rgb(45, 8, 73)
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
