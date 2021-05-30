@@ -1,28 +1,48 @@
 <template>
   <q-layout view="Hhh lpR fff">
     <q-header reveal elevated height-hint="98">
-      <q-toolbar class="colorToolbar">
+      <q-toolbar :style="'background-color:' + this.colorTheme">
         <q-btn flat round dense icon="menu" class="q-mr-sm" @click="drawer = !drawer" />
-        <q-toolbar-title>Sells Web</q-toolbar-title>
+        <q-toolbar-title>Central de Vendas Web</q-toolbar-title>
         <q-btn round>
-          <q-avatar size="43px" class="bg-white">
+          <q-avatar size="44px" class="bg-white">
             <img style="width: 40px; height: 40px" src="../assets/k10Logo.jpg">
           </q-avatar>
-          <q-menu class="perfil">
-            <div class="row no-wrap q-pa-md">
+          <q-menu>
+            <div class="perfil row no-wrap q-py-lg justify-center">
               <div class="column items-center">
-                <q-avatar size="75px">
+                <q-avatar size="90px">
                   <img src="../assets/k10Logo.jpg">
                 </q-avatar>
+                <h4 class="q-mt-md q-mb-xs">K10 Sports</h4>
+                <q-separator color="black" inset size="30px"/>
+                <p class="q-mb-xs">Defina sua cor de tema:</p>
+                <q-color
+                  v-model="colorTheme"
+                  default-view="palette"
+                  no-footer
+                  no-header
+                  :palette="[
+                    '#d60000','#d66c00',
+                    '#d9b801','#005c00',
+                    '#00005c','#019a9d',
+                    '#e8045a','#2d0849',
+                    '#666666','#000000',
+                  ]"
+                  class="my-picker"
+                />
+                <q-separator color="black" inset size="30px"/>
+                <q-btn
+                  style="color: red"
+                  outline
+                  label="Logout"
+                  dense
+                  size="md"
+                  v-close-popup
+                  class="q-my-lg q-px-md"
+                  @click="logout"
+                />
               </div>
-              <div class="text-subtitle1 q-mt-md q-mb-xs">K10 Sports</div>
-              <q-btn
-                color="primary"
-                label="Logout"
-                push
-                size="sm"
-                v-close-popup
-              />
             </div>
           </q-menu>
         </q-btn>
@@ -50,8 +70,10 @@
       -->
     </q-header>
 
+      <!-- :content-class="'background-color: ' + this.colorTheme" -->
+      <!-- :style="'background-color:' + this.colorTheme" -->
     <q-drawer
-      content-class="colorSidebar"
+      :content-style="'background-color:' + this.colorTheme"
       v-model="drawer"
       show-if-above
       mini-to-overlay
@@ -107,6 +129,7 @@ export default {
     return {
       miniState: true,
       drawer: false,
+      colorTheme: '#2d0849',
       //tab: null,  --> Esta função apenas será reativada caso queira exibir a TabBar
       menus: [
         {icon: "home", name: "home", label: "Página Inicial", route: "/home"},
@@ -140,22 +163,17 @@ export default {
           }
         }
       });
+    },
+    logout() {
+      this.$router.push('/')
     }
   }
 }
 </script>
 
 <style>
-.colorToolbar {
-  background-color: var(--colorBackground);
-}
-
-.colorSidebar {
-  background-color: var(--colorBackground);
-}
-
 .perfil {
   width: 250px;
-  height: 300px;
+  height: auto;
 }
 </style>

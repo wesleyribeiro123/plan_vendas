@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss">
 :root {
-  --colorBackground: rgb(45, 8, 73)
+  --colorBackground: #2d0849;
 }
 
 body {
